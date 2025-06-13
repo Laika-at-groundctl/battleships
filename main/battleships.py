@@ -35,7 +35,7 @@ root.configure(bg=BgColour, border=5)
 root.title("BATTLESHIPS")
 
 # set window size
-root.geometry("700x700")
+root.geometry("800x500")
 
 # create grid
 for row in range(10):
@@ -45,9 +45,26 @@ for row in range(10):
         btn.grid(row=row, column=col, padx=0, pady=0)
 
 # string variables
-X_var = StringVar()
+X_var = IntVar()
 
-Y_var = StringVar()
+Y_var = IntVar()
+
+# actual function
+
+
+def PlayerMove():
+
+    X = X_var.get()
+    Y = Y_var.get()
+
+    global enemyX
+    global enemyY
+
+    if X in enemyX and Y in enemyY:
+        print("hit")
+    else:
+        print("miss")
+
 
 # player inputs
 Entry1Label = Label(root, text="enter x coordinate",
@@ -62,9 +79,14 @@ Entry1 = Entry(root, textvariable=X_var, font=MainFont,
 Entry2 = Entry(root, textvariable=Y_var, font=MainFont,
                bg=BgColour1, fg=TxtColour)
 
-Entry1Label.grid(row=10, column=10)
-Entry2Label.grid(row=11, column=10)
-Entry1.grid(row=10, column=11)
-Entry2.grid(row=11, column=11)
+Submit = Button(root, text="Submit", bg=BgColour1,
+                fg=TxtColour, command=PlayerMove)
+
+Entry1Label.grid(row=7, column=10)
+Entry2Label.grid(row=8, column=10)
+Entry1.grid(row=7, column=11)
+Entry2.grid(row=8, column=11)
+Submit.grid(row=9, column=10)
+
 # Window end
 root.mainloop()
