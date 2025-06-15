@@ -25,6 +25,7 @@ BgColour1 = "#9399b2"
 
 # font
 MainFont = ["JetBrains Mono", "13"]
+TitleFont = ["JetBrains Mono", "17"]
 
 # for debugging
 print(position1x, position1y, position2x, position2y, position3x, position3x)
@@ -48,6 +49,9 @@ for row in range(10):
                      text=f"{row},{col}", width=1, height=1)
         btn.grid(row=row, column=col, padx=0, pady=0)
 
+Title = Label(bg=BgColour1, fg=TxtColour, text="BATTLESHIPS", font=TitleFont)
+Title.grid(row=0, column=10, columnspan=2)
+
 # string variables
 X_var = IntVar()
 
@@ -66,7 +70,7 @@ def PlayerMove():
 
     if X in enemyX and Y in enemyY:
         print("hit")
-        hits = hits + 1
+        global hits
     else:
         print("miss")
 
