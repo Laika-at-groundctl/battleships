@@ -14,6 +14,10 @@ position3y = ran.randint(0, 9)
 enemyX = [position1x, position2x, position3x]
 enemyY = [position1y, position2y, position3y]
 
+# For a function later
+NumEnemy = 3
+hits = 0
+
 # colours (taken from cattpuccin mocha colour scheme https://catppuccin.com/palette/)
 BgColour = "#1e1e2e"
 TxtColour = "#cdd6f4"
@@ -62,6 +66,7 @@ def PlayerMove():
 
     if X in enemyX and Y in enemyY:
         print("hit")
+        hits = hits + 1
     else:
         print("miss")
 
@@ -87,6 +92,12 @@ Entry2Label.grid(row=8, column=10)
 Entry1.grid(row=7, column=11)
 Entry2.grid(row=8, column=11)
 Submit.grid(row=9, column=10)
+
+# player win condition
+if hits == NumEnemy:
+    print("You win")
+else:
+    pass
 
 # Window end
 root.mainloop()
