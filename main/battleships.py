@@ -91,6 +91,7 @@ def PlayerMove():
                 Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
             else:
                 print("miss")
+                Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
         except:
             print("Invalid number")
     except:
