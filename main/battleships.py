@@ -20,8 +20,11 @@ hits = 0
 
 # colours (taken from cattpuccin mocha colour scheme https://catppuccin.com/palette/)
 BgColour = "#1e1e2e"
-TxtColour = "#cdd6f4"
 BgColour1 = "#9399b2"
+StColourM = "#f4dbd6"
+StColourH = "#ed8796"
+TxtColour = "#cdd6f4"
+TxtColour1 = "#5b6078"
 
 # font
 MainFont = ["JetBrains Mono", "13"]
@@ -49,8 +52,15 @@ for row in range(10):
                      text=f"{row},{col}", width=1, height=1)
         btn.grid(row=row, column=col, padx=0, pady=0)
 
+# Game title
 Title = Label(bg=BgColour1, fg=TxtColour, text="BATTLESHIPS", font=TitleFont)
+
 Title.grid(row=0, column=10, columnspan=2)
+
+# Hit status
+Status = Label(bg=BgColour1, fg=TxtColour, text="normal", font=MainFont)
+
+Status.grid(row=2, column=10, columnspan=2)
 
 # string variables
 X_var = IntVar()
@@ -62,17 +72,29 @@ Y_var = IntVar()
 
 def PlayerMove():
 
-    X = X_var.get()
-    Y = Y_var.get()
+    x = X_var.get()
+    y = Y_var.get()
 
     global enemyX
     global enemyY
-
-    if X in enemyX and Y in enemyY:
-        print("hit")
-        global hits
-    else:
-        print("miss")
+    try:
+        x == int(x)
+        y == int(y)
+        try:
+            x <= 9
+            x >= 0
+            y <= 9
+            y >= 0
+            if x in enemyX and y in enemyY:
+                print("hit")
+                global hits
+                Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
+            else:
+                print("miss")
+        except:
+            print("Invalid number")
+    except:
+        print("not a nummber")
 
 
 # player inputs
