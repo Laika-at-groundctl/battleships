@@ -17,8 +17,8 @@ enemyY = [position1y, position2y, position3y]
 
 # For a function later
 NumEnemy = 3
-hits = 0
-
+Hits = 0
+Ammo = 5
 # colours (taken from cattpuccin mocha colour scheme https://catppuccin.com/palette/)
 BgColour = "#1e1e2e"
 BgColour1 = "#9399b2"
@@ -84,16 +84,19 @@ def PlayerMove():
         if x <= 9 and x >= 0 and y <= 9 and y >= 0:
             if x in enemyX and y in enemyY:
                 print("hit")
-                global hits
-                hits = hits + 1
-                print("current hits: ", hits)
+                global Hits
+                Hits = Hits + 1
+                print("current hits: ", Hits)
                 Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
                 # time.sleep(100)
                 # Status.configure(bg=BgColour1, fg=TxtColour, text="normal")
+                if Hits == NumEnemy:
+                    Status.configure(text="you win")
+                else:
+                    pass
             else:
                 print("miss")
-              Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
-            
+                Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
         else:
             print("Invalid number")
             Status.configure(text="Number to big/small")
@@ -123,12 +126,6 @@ Entry2Label.grid(row=8, column=10)
 Entry1.grid(row=7, column=11)
 Entry2.grid(row=8, column=11)
 Submit.grid(row=9, column=10)
-
-# player win condition
-if hits == NumEnemy:
-    print("You win")
-else:
-    pass
 
 # Window end
 root.mainloop()
