@@ -93,7 +93,11 @@ def PlayerMove():
             else:
                 print("miss")
                 Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
+<<<<<<< HEAD
         else:
+=======
+        except:
+>>>>>>> 09adb6a23d22863d57b2e698fdfcb0f5792ec8d4
             print("Invalid number")
             Status.configure(text="Number to big/small")
     except:
