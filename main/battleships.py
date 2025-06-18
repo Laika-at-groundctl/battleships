@@ -1,6 +1,7 @@
 # Imports
 from tkinter import *
 import random as ran
+import time
 
 # enemy ai
 position1x = ran.randint(0, 9)
@@ -72,30 +73,32 @@ Y_var = IntVar()
 
 def PlayerMove():
 
-    x = X_var.get()
-    y = Y_var.get()
+    # x = X_var.get()
+    # y = Y_var.get()
 
     global enemyX
     global enemyY
     try:
-        x == int(x)
-        y == int(y)
-        try:
-            x <= 9
-            x >= 0
-            y <= 9
-            y >= 0
+        x = X_var.get()
+        y = Y_var.get()
+        if x <= 9 and x >= 0 and y <= 9 and y >= 0:
             if x in enemyX and y in enemyY:
                 print("hit")
                 global hits
+                hits = hits + 1
+                print("current hits: ", hits)
                 Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
+                # time.sleep(100)
+                # Status.configure(bg=BgColour1, fg=TxtColour, text="normal")
             else:
                 print("miss")
                 Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
-        except:
+        else:
             print("Invalid number")
+            Status.configure(text="Number to big/small")
     except:
         print("not a nummber")
+        Status.configure(text="Not a number")
 
 
 # player inputs
