@@ -15,10 +15,12 @@ position3y = ran.randint(0, 9)
 enemyX = [position1x, position2x, position3x]
 enemyY = [position1y, position2y, position3y]
 
-# For a function later
+# For functions to do with player actions and game function later
 NumEnemy = 3
 Hits = 0
 Ammo = 5
+PlayerLose = False
+AmmoTxt = "Ammo: "
 # colours (taken from cattpuccin mocha colour scheme https://catppuccin.com/palette/)
 BgColour = "#1e1e2e"
 BgColour1 = "#9399b2"
@@ -111,6 +113,12 @@ def PlayerMove():
                 Ammo = Ammo - 1
                 print("miss")
                 Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
+                if Ammo == 0:
+                    global PlayerLose
+                    Status.configure(StColourH, fg=TxtColour1, text="you lose")
+                    PlayerLose = True
+                else:
+                    pass
         else:
             print("Invalid number")
             Status.configure(text="Number to big/small")
@@ -118,7 +126,7 @@ def PlayerMove():
         print("not a nummber")
         Status.configure(text="Not a number")
 
-    AmmoCount.configure(text=("Ammo= ", Ammo))
+    AmmoCount.configure(text=(AmmoTxt, Ammo))
 
 
 # player inputs
@@ -134,14 +142,17 @@ Entry1 = Entry(root, textvariable=X_var, font=MainFont,
 Entry2 = Entry(root, textvariable=Y_var, font=MainFont,
                bg=BgColour1, fg=TxtColour)
 
-Submit = Button(root, text="Submit", bg=BgColour1,
-                fg=TxtColour, command=PlayerMove)
+if PlayerLose is False:
+    Submit = Button(root, text="Submit", bg=BgColour1,
+                    fg=TxtColour, command=PlayerMove)
+    Submit.grid(row=9, column=10, columnspan=2)
+else:
+    pass
 
 Entry1Label.grid(row=7, column=10)
 Entry2Label.grid(row=8, column=10)
 Entry1.grid(row=7, column=11)
 Entry2.grid(row=8, column=11)
-Submit.grid(row=9, column=10)
 
 # Window end
 root.mainloop()
