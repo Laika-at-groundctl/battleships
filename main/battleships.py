@@ -24,6 +24,7 @@ BgColour = "#1e1e2e"
 BgColour1 = "#9399b2"
 StColourM = "#f4dbd6"
 StColourH = "#ed8796"
+StColourW = "a6da95"
 TxtColour = "#cdd6f4"
 TxtColour1 = "#5b6078"
 
@@ -32,7 +33,7 @@ MainFont = ["JetBrains Mono", "13"]
 TitleFont = ["JetBrains Mono", "17"]
 
 # for debugging
-print(position1x, position1y, position2x, position2y, position3x, position3x)
+print(position1x, position1y, position2x, position2y, position3x, position3y)
 
 # window setup
 root = Tk()
@@ -63,6 +64,16 @@ Status = Label(bg=BgColour1, fg=TxtColour, text="normal", font=MainFont)
 
 Status.grid(row=2, column=10, columnspan=2)
 
+
+def update():
+    AmmoCount.configure(text=Ammo)
+
+
+# Ammo counter
+AmmoCount = Label(bg=BgColour1, fg=TxtColour, text="Ammo = 5")
+
+AmmoCount.grid(row=4, column=10, columnspan=2)
+
 # string variables
 X_var = IntVar()
 
@@ -75,7 +86,6 @@ def PlayerMove():
 
     # x = X_var.get()
     # y = Y_var.get()
-
     global enemyX
     global enemyY
     try:
@@ -83,6 +93,8 @@ def PlayerMove():
         y = Y_var.get()
         if x <= 9 and x >= 0 and y <= 9 and y >= 0:
             if x in enemyX and y in enemyY:
+                global Ammo
+                Ammo = Ammo - 1
                 print("hit")
                 global Hits
                 Hits = Hits + 1
@@ -91,10 +103,12 @@ def PlayerMove():
                 # time.sleep(100)
                 # Status.configure(bg=BgColour1, fg=TxtColour, text="normal")
                 if Hits == NumEnemy:
-                    Status.configure(text="you win")
+                    Status.configure(
+                        bg=StColourW, fg=TxtColour1, text="you win")
                 else:
                     pass
             else:
+                Ammo = Ammo - 1
                 print("miss")
                 Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
         else:
@@ -103,6 +117,8 @@ def PlayerMove():
     except:
         print("not a nummber")
         Status.configure(text="Not a number")
+
+    AmmoCount.configure(text=("Ammo= ", Ammo))
 
 
 # player inputs
