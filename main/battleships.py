@@ -102,8 +102,6 @@ def PlayerMove():
                 Hits = Hits + 1
                 print("current hits: ", Hits)
                 Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
-                # time.sleep(100)
-                # Status.configure(bg=BgColour1, fg=TxtColour, text="normal")
                 if Hits == NumEnemy:
                     Status.configure(
                         bg=StColourW, fg=TxtColour1, text="you win")
