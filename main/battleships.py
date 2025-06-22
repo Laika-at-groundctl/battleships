@@ -47,7 +47,7 @@ root.configure(bg=BgColour, border=5)
 root.title("BATTLESHIPS")
 
 # set window size
-root.geometry("800x500")
+root.geometry("780x390")
 
 # create grid
 for row in range(10):
@@ -85,44 +85,44 @@ Y_var = IntVar()
 
 
 def PlayerMove():
-
-    # x = X_var.get()
-    # y = Y_var.get()
-    global enemyX
-    global enemyY
-    try:
-        x = X_var.get()
-        y = Y_var.get()
-        if x <= 9 and x >= 0 and y <= 9 and y >= 0:
-            if x in enemyX and y in enemyY:
-                global Ammo
-                Ammo = Ammo - 1
-                print("hit")
-                global Hits
-                Hits = Hits + 1
-                print("current hits: ", Hits)
-                Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
-                if Hits == NumEnemy:
-                    Status.configure(
-                        bg=StColourW, fg=TxtColour1, text="you win")
+    global PlayerLose
+    if PlayerLose is True:
+        Status.configure(bg=StColourH, fg=TxtColour1, text="You Lose")
+    else:
+        global enemyX
+        global enemyY
+        try:
+            x = X_var.get()
+            y = Y_var.get()
+            if x <= 9 and x >= 0 and y <= 9 and y >= 0:
+                if x in enemyX and y in enemyY:
+                    global Ammo
+                    Ammo = Ammo - 1
+                    print("hit")
+                    global Hits
+                    Hits = Hits + 1
+                    print("current hits: ", Hits)
+                    Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
+                    if Hits == NumEnemy:
+                        Status.configure(
+                            bg=StColourW, fg=TxtColour1, text="you win")
+                    else:
+                        pass
                 else:
-                    pass
-            else:
-                Ammo = Ammo - 1
-                print("miss")
-                Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
+                    Ammo = Ammo - 1
+                    print("miss")
+                    Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
                 if Ammo == 0:
-                    global PlayerLose
                     Status.configure(StColourH, fg=TxtColour1, text="you lose")
                     PlayerLose = True
                 else:
                     pass
-        else:
-            print("Invalid number")
-            Status.configure(text="Number to big/small")
-    except:
-        print("not a nummber")
-        Status.configure(text="Not a number")
+            else:
+                print("Invalid number")
+                Status.configure(text="Number to big/small")
+        except:
+            print("not a nummber")
+            Status.configure(text="Not a number")
 
     AmmoCount.configure(text=(AmmoTxt, Ammo))
 
