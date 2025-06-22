@@ -86,45 +86,45 @@ Y_var = IntVar()
 
 def PlayerMove():
     global PlayerLose
-    if PlayerLose is True:
+    if Ammo <= 0:  # checks if player has ammo
         Status.configure(bg=StColourH, fg=TxtColour1, text="You Lose")
     else:
         global enemyX
         global enemyY
-        try:
+        try:  # checks if X&Y are intigers
             x = X_var.get()
             y = Y_var.get()
-            if x <= 9 and x >= 0 and y <= 9 and y >= 0:
-                if x in enemyX and y in enemyY:
+            if x <= 9 and x >= 0 and y <= 9 and y >= 0:  # Check for invalid coordinates
+                if x in enemyX and y in enemyY:  # checks to see if PlayerMove is a hit
                     global Ammo
-                    Ammo = Ammo - 1
-                    print("hit")
+                    Ammo = Ammo - 1  # gives you less ammo
+                    print("hit")  # more debugging
                     global Hits
-                    Hits = Hits + 1
+                    Hits = Hits + 1  # for win condition later
                     print("current hits: ", Hits)
                     Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
-                    if Hits == NumEnemy:
+                    if Hits == NumEnemy:  # win condition
                         Status.configure(
                             bg=StColourW, fg=TxtColour1, text="you win")
                     else:
                         pass
-                else:
+                else:  # miss
                     Ammo = Ammo - 1
                     print("miss")
                     Status.configure(bg=StColourM, fg=TxtColour1, text="Miss")
-                if Ammo == 0:
-                    Status.configure(StColourH, fg=TxtColour1, text="you lose")
+                if Ammo == 0:  # lose condition
                     PlayerLose = True
                 else:
                     pass
             else:
                 print("Invalid number")
-                Status.configure(text="Number to big/small")
+                Status.configure(bg=StColourH, fg=TxtColour1,
+                                 text="Number to big/small")
         except:
             print("not a nummber")
-            Status.configure(text="Not a number")
+            Status.configure(bg=StColourH, fg=TxtColour1, text="Not a number")
 
-    AmmoCount.configure(text=(AmmoTxt, Ammo))
+    AmmoCount.configure(text=(AmmoTxt, Ammo))  # ammo counter math W.I.P
 
 
 # player inputs
