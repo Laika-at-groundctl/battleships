@@ -1,7 +1,6 @@
 # Imports
 from tkinter import *
 import random as ran
-import time
 
 # enemy ai
 position1x = ran.randint(0, 9)
@@ -86,6 +85,8 @@ Y_var = IntVar()
 
 def PlayerMove():
     global PlayerLose
+    global Ammo
+    global Hits
     if Ammo <= 0:  # checks if player has ammo
         Status.configure(bg=StColourH, fg=TxtColour1, text="You Lose")
     else:
@@ -96,10 +97,8 @@ def PlayerMove():
             y = Y_var.get()
             if x <= 9 and x >= 0 and y <= 9 and y >= 0:  # Check for invalid coordinates
                 if x in enemyX and y in enemyY:  # checks to see if PlayerMove is a hit
-                    global Ammo
                     Ammo = Ammo - 1  # gives you less ammo
                     print("hit")  # more debugging
-                    global Hits
                     Hits = Hits + 1  # for win condition later
                     print("current hits: ", Hits)
                     Status.configure(bg=StColourH, fg=TxtColour1, text="hit")
@@ -120,7 +119,7 @@ def PlayerMove():
                 print("Invalid number")
                 Status.configure(bg=StColourH, fg=TxtColour1,
                                  text="Number to big/small")
-        except:
+        except TclError:
             print("not a nummber")
             Status.configure(bg=StColourH, fg=TxtColour1, text="Not a number")
 
