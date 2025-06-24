@@ -71,7 +71,7 @@ def update():
 
 
 # Ammo counter
-AmmoCount = Label(bg=BgColour1, fg=TxtColour, text="Ammo = 5")
+AmmoCount = Label(bg=BgColour1, fg=TxtColour, text="Ammo: " + str(Ammo))
 
 AmmoCount.grid(row=4, column=10, columnspan=2)
 
@@ -86,10 +86,9 @@ Y_var = IntVar()
 def PlayerMove():
     global PlayerLose
     global Ammo
+    global AmmoTxt
     global Hits
-    if Ammo <= 0:  # checks if player has ammo
-        Status.configure(bg=StColourH, fg=TxtColour1, text="You Lose")
-    else:
+    if PlayerLose is False:
         global enemyX
         global enemyY
         try:  # checks if X&Y are intigers
@@ -122,8 +121,9 @@ def PlayerMove():
         except TclError:
             print("not a nummber")
             Status.configure(bg=StColourH, fg=TxtColour1, text="Not a number")
-
-    AmmoCount.configure(text=(AmmoTxt, Ammo))  # ammo counter math W.I.P
+    else:
+        Status.configure(bg=StColourH, fg=TxtColour1, text="You lose")
+    AmmoCount.configure(text="Ammo: " + str(Ammo))  # ammo counter math W.I.P
 
 
 # player inputs
@@ -139,12 +139,9 @@ Entry1 = Entry(root, textvariable=X_var, font=MainFont,
 Entry2 = Entry(root, textvariable=Y_var, font=MainFont,
                bg=BgColour1, fg=TxtColour)
 
-if PlayerLose is False:
-    Submit = Button(root, text="Submit", bg=BgColour1,
-                    fg=TxtColour, command=PlayerMove)
-    Submit.grid(row=9, column=10, columnspan=2)
-else:
-    pass
+Submit = Button(root, text="Submit", bg=BgColour1,
+                fg=TxtColour, command=PlayerMove)
+Submit.grid(row=9, column=10, columnspan=2)
 
 Entry1Label.grid(row=7, column=10)
 Entry2Label.grid(row=8, column=10)
