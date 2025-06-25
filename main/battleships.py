@@ -125,7 +125,7 @@ def PlayerMove():
         try:  # checks if X&Y are intigers
             x = X_var.get()
             y = Y_var.get()
-            if x <= 9 or x >= 0 or y <= 9 or y >= 0 or x in PlayerX or y in PlayerY:  # Check for invalid coordinates
+            if x <= 9 or x >= 0 or y <= 9 or y >= 0 or x not in PlayerX or y not in PlayerY:  # Check for invalid coordinates
                 if x in enemyX and y in enemyY:
                     # checks to see if PlayerMove is a hit
                     Ammo = Ammo - 1  # gives you less ammo
