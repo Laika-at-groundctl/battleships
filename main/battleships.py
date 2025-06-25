@@ -3,12 +3,37 @@ from tkinter import *
 import random as ran
 
 # enemy ai
+AiDone = False
+
 position1x = ran.randint(0, 9)
 position1y = ran.randint(0, 9)
 position2x = ran.randint(0, 9)
 position2y = ran.randint(0, 9)
 position3x = ran.randint(0, 9)
 position3y = ran.randint(0, 9)
+
+
+def AiCheck(AiDone):
+    while AiDone is False:
+        global position1x
+        global position1y
+        global position2x
+        global position2y
+        global position3x
+        global position3y
+        if position1x == position2x or position2x == position3x or position3x == position1x:
+            position1x = ran.randint(0, 9)
+            position2x = ran.randint(0, 9)
+            position3x = ran.randint(0, 9)
+        elif position1y == position2y or position2y == position3y or position3y == position1y:
+            position1y = ran.randint(0, 9)
+            position2y = ran.randint(0, 9)
+            position3y = ran.randint(0, 9)
+        else:
+            AiDone = True
+
+
+AiCheck(AiDone)
 
 # Make list so you can crossrefrence later with player actions
 enemyX = [position1x, position2x, position3x]
