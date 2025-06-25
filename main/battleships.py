@@ -12,6 +12,8 @@ position2y = ran.randint(0, 9)
 position3x = ran.randint(0, 9)
 position3y = ran.randint(0, 9)
 
+# stupid simple duplicate protection
+
 
 def AiCheck(AiDone):
     while AiDone is False:
@@ -21,15 +23,15 @@ def AiCheck(AiDone):
         global position2y
         global position3x
         global position3y
-        if position1x == position2x or position2x == position3x or position3x == position1x:
+        if position1x == position2x or position2x == position3x or position3x == position1x:  # check for x coordinate dupes
             position1x = ran.randint(0, 9)
             position2x = ran.randint(0, 9)
             position3x = ran.randint(0, 9)
-        elif position1y == position2y or position2y == position3y or position3y == position1y:
+        elif position1y == position2y or position2y == position3y or position3y == position1y:  # check for y coordinate dupes
             position1y = ran.randint(0, 9)
             position2y = ran.randint(0, 9)
             position3y = ran.randint(0, 9)
-        else:
+        else:  # sends done message
             AiDone = True
 
 
@@ -38,6 +40,8 @@ AiCheck(AiDone)
 # Make list so you can crossrefrence later with player actions
 enemyX = [position1x, position2x, position3x]
 enemyY = [position1y, position2y, position3y]
+PlayerX = []
+PlayerY = []
 
 # For functions to do with player actions and game function later
 NumEnemy = 3
@@ -113,14 +117,17 @@ def PlayerMove():
     global Ammo
     global AmmoTxt
     global Hits
+    global PlayerX
+    global PlayerY
     if PlayerLose is False:
         global enemyX
         global enemyY
         try:  # checks if X&Y are intigers
             x = X_var.get()
             y = Y_var.get()
-            if x <= 9 and x >= 0 and y <= 9 and y >= 0:  # Check for invalid coordinates
-                if x in enemyX and y in enemyY:  # checks to see if PlayerMove is a hit
+            if x <= 9 or x >= 0 or y <= 9 or y >= 0 or x in PlayerX or y in PlayerY:  # Check for invalid coordinates
+                if x in enemyX and y in enemyY:
+                    # checks to see if PlayerMove is a hit
                     Ammo = Ammo - 1  # gives you less ammo
                     print("hit")  # more debugging
                     Hits = Hits + 1  # for win condition later
@@ -131,6 +138,8 @@ def PlayerMove():
                             bg=StColourW, fg=TxtColour1, text="you win")
                     else:
                         pass
+                    PlayerX.append(x)
+                    PlayerY.append(y)
                 else:  # miss
                     Ammo = Ammo - 1
                     print("miss")
@@ -139,16 +148,20 @@ def PlayerMove():
                     PlayerLose = True
                 else:
                     pass
+                PlayerX.append(x)
+                PlayerY.append(y)
             else:
                 print("Invalid number")
                 Status.configure(bg=StColourH, fg=TxtColour1,
-                                 text="Number to big/small")
+                                 text="Number to big/small or has already been played")
         except TclError:
             print("not a nummber")
             Status.configure(bg=StColourH, fg=TxtColour1, text="Not a number")
     else:
         Status.configure(bg=StColourH, fg=TxtColour1, text="You lose")
     AmmoCount.configure(text="Ammo: " + str(Ammo))  # ammo counter math W.I.P
+    print(PlayerX)
+    print(PlayerY)
 
 
 # player inputs
