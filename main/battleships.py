@@ -197,8 +197,8 @@ Entry2 = Entry(root, textvariable=Y_var, font=MainFont,
 
 Submit = Button(root, text="Submit", bg=BgColour1,
                 fg=TxtColour, command=PlayerMove)
-Submit.grid(row=9, column=10, columnspan=2)
 
+Submit.grid(row=9, column=10, columnspan=2)
 Entry1Label.grid(row=7, column=10)
 Entry2Label.grid(row=8, column=10)
 Entry1.grid(row=7, column=11)
