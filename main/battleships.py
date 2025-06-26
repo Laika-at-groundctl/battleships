@@ -59,7 +59,7 @@ BgColour = "#1e1e2e"
 BgColour1 = "#9399b2"
 StColourM = "#f4dbd6"
 StColourH = "#ed8796"
-StColourW = "a6da95"
+StColourW = "#a6da95"
 TxtColour = "#cdd6f4"
 TxtColour1 = "#5b6078"
 
