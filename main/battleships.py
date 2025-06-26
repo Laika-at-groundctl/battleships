@@ -131,7 +131,7 @@ def PlayerMove():  # function for PlayerMove logic
             x = X_var.get()
             y = Y_var.get()
 
-            if x <= 9 or x >= 0 or y <= 9 or y >= 0:  # Check for invalid coordinates
+            if x <= 9 and x >= 0 and y <= 9 and y >= 0:  # Check for invalid coordinates
 
                 if x in enemyX and y in enemyY:
 
@@ -165,7 +165,7 @@ def PlayerMove():  # function for PlayerMove logic
 
                 print("Invalid number")
                 Status.configure(bg=StColourH, fg=TxtColour1,
-                                 text="Number to big/small or has already been played")
+                                 text="Number to big/small")
         except TclError:
 
             print("not a nummber")
